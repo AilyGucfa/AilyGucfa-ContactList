@@ -1,0 +1,49 @@
+.header{
+    justify-content: center; 
+    display: flex;
+}
+.AddContactButton{
+    float: right;
+}
+li {
+    list-style-type: none; /* Remove bullet points from list items */
+}
+/* Apply appropriate styles to position the button and list */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.ml-auto {
+    margin-left: auto;
+    
+}
+
+.contact-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    display: flex; /* Add flex display to the contact-info div */
+    align-items: center; /* Align items vertically */
+}
+
+.contact-image {
+    flex: 0 0 auto;
+    width:  150px; /* Set width to match the image size */
+    height: 150px; /* Set height to match the image size */
+    margin-right: 10px;
+    overflow: hidden; /* Hide overflow if the image is larger */
+    border-radius: 100%;
+    
+}
+
+.contact-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}

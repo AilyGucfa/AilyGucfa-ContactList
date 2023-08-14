@@ -1,16 +1,9 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
+			contacts: [
 				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
+					image_url: "https://picsum.photos/seed/picsum/200/300"
 				}
 			]
 		},
@@ -19,10 +12,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			loadSomeData: () => {
+			fetchAllContacts: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
+				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/my_super_agenda")
+				.then(res => res.json())
+				.then(data => {
+                    setStore({ contacts: data });
+                })
 			},
 			changeColor: (index, color) => {
 				//get the store
