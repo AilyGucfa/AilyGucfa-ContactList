@@ -1,43 +1,80 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			contacts: [
-				{
-					image_url: "https://picsum.photos/seed/picsum/200/300"
-				}
-			]
+			contacts: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+		
 			fetchAllContacts: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
-				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/my_super_agenda")
-				.then(res => res.json())
+				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/HelloAilyG")
+				.then(response => response.json())
 				.then(data => {
-                    setStore({ contacts: data });
-                })
+					console.log(data);
+					setStore({contacts: data})
+				})
 			},
-			changeColor: (index, color) => {
-				//get the store
+			fetchDeleteOneContact: id => {
+				let options = {
+					method: 'DELETE',
+					body: JSON.stringify(id),
+					headers: {'Content-Type': 'application/json'}
+				}
+				
+				fetch("https://playground.4geeks.com/apis/fake/contact/" + id, options)
+					.then(response => {
+						if (!response.ok) throw Error(response.statusText);
+					})
+					.then(() => console.log("Successfully deleted"))
+			},
+			// Inside fetchCreateOneContact
+			fetchCreateOneContact: newContact => {
+    			const options = {
+        			method: 'POST',
+        			body: JSON.stringify(newContact),
+        			headers: { 'Content-Type': 'application/json' }
+    		};
+
+    		fetch("https://playground.4geeks.com/apis/fake/contact", options)
+        		.then(response => response.json())
+        		.then(data => {
+            	console.log("Successfully created:", data);
+            	// Update the store with the new contact
+            	getActions().addContact(data);
+        	})
+        	.catch(error => console.error("Error creating contact:", error));
+		},
+
+		// Modify saveContact to accept parameters
+			saveContact: (fullName, address, email, phone) => {
+    		let newContact = {
+        	full_name: "AilyG",
+        	email: "almacin@gmail.com",
+        	address: "111 brickell",
+        	phone: "(347)-416-4157",
+        	agenda_slug: "HelloAilyG"
+    	};
+    		getActions().fetchCreateOneContact(newContact);
+		},
+			deleteContact: id => {
 				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+				let revisedContactList = store.contacts.filter(contact => contact.id !== id);
+				getActions().fetchDeleteOneContact(id);
+				setStore({ contacts: revisedContactList });
+			},
+			addContact: (aNewContact) => {
+				const store = getStore();
+				let revisedStore = [...store.contacts, aNewContact];
+				getActions().fetchCreateOneContact(aNewContact);
+				setStore({contacts: revisedStore})
 			}
+			
 		}
-	};
+	}
 };
+
 
 export default getState;
