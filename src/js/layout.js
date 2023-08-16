@@ -26,7 +26,7 @@ const Layout = () => {
 					<Routes>
 						
 						<Route path="/" element={<Contact />} />
-						<Route path= "/addcontact" element ={<AddContact/>}></Route>
+						<Route path= "/addContact" element ={<AddContact/>}></Route>
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
