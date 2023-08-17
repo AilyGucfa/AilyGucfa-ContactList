@@ -41,13 +41,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => console.log("Successfully created", response))
 					.catch(error => console.error("Error creating contact:", error));
 			},
-			fetchUpdateContact: () =>{
+			fetchUpdateContact:editContact  =>{
 				let options = {
-					method: "UPDATE",
-					body: JSON.stringify(fetchUpdateContact),
+					method: "PUT",
+					body: JSON.stringify(editContact),
 					headers: { "Content-Type": "application/json" }
 				};
-				fetch("https://playground.4geeks.com/apis/fake/contact/95042548019", options)
+				fetch("https://playground.4geeks.com/apis/fake/contact/12557060618"+ editContact.id, options)
 					.then(response => {
 						if (!response.ok) throw Error(response.statusText);
 						return response;
@@ -72,21 +72,33 @@ const getState = ({ getStore, getActions, setStore }) => {
                 };
                 getActions().addContact(newContact);
             },
+            updateContact: (fullName, address, email, phone) => { 
+				let updatedContact = {
+					full_name: fullName,
+					address: address,
+					email: email,
+					phone: phone,
+					agenda_slug: "HelloAilyG"
+				}
+				getActions().editContact(updatedContact);
+            },
+
             addContact: aNewContact => {
                 const store = getStore();
                 let revisedStore = [...store.contacts, aNewContact];
                 getActions().fetchCreateOneContact(aNewContact);
                 setStore({ contacts: revisedStore });
             },
-			updateContact: updateAContact => {
+			editContact: updateAContact => {
                 getActions().fetchUpdateContact(updateAContact)
-                    .then(() => {
-                        const store = getStore();
-                        let updatedContacts = store.contacts.map(contact =>
-                            contact.id === updateAContact.id ? updateAContact : contact
-                        );
-                        setStore({ contacts: updatedContacts });
-                    });
+                .then(() => {
+                    const store = getStore();
+                    let updatedContacts = store.contacts.map(contact =>
+                        contact.id === updateAContact.id ? updateAContact : contact
+                    );
+                    setStore({ contacts: updatedContacts });
+                });
+                
             }
         }
     };
