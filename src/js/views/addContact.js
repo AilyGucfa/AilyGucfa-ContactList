@@ -1,44 +1,42 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../store/appContext';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
 
 const AddContact = () => {
-  const { actions } = useContext(Context);
+  const {actions } = useContext(Context);
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
+  let navigate = useNavigate()
 
   const handleSave = (e) => {
     e.preventDefault();
-     actions.fetchCreateOneContact(fullName, address, email, phone);
+    console.log(fullName, address, email,phone)
+    actions.saveContact(fullName, address, email, phone);
     // Fetch all contacts again to update the contact list
-    actions.fetchAllContacts();
-    // Reset the form data
+    setFullName("")
+    setAddress("")
+    setEmail("")
+    setPhone("")
+    navigate("/")
     
   };
 
   return (
     <>
+      <h1 className="header"> Add New Contact</h1>
       <form>
         <div className="container">
-          <h1 className="header"> Add New Contact</h1>
           <div className="mb-3">
-            <label htmlFor="formGroupExampleInput" className="form-label">
+            <label htmlFor="addFullName" className="form-label">
               Full Name
             </label>
             <input
               type="text"
               className="form-control"
-              id="formGroupExampleInput"
+              id="addFullName"
               placeholder="Full Name"
               name="full_name"
               value={fullName}
@@ -46,13 +44,13 @@ const AddContact = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="formGroupExampleInput2" className="form-label">
+            <label htmlFor="addEmail" className="form-label">
               Email
             </label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              id="formGroupExampleInput2"
+              id="addEmail"
               placeholder="Email"
               name="email"
               value={email}
@@ -60,13 +58,13 @@ const AddContact = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="formGroupExampleInput3" className="form-label">
+            <label htmlFor="addPhone" className="form-label">
               Phone
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control"
-              id="formGroupExampleInput3"
+              id="addPhone"
               placeholder="Enter Phone"
               name="phone"
               value={phone}
@@ -74,13 +72,13 @@ const AddContact = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="formGroupExampleInput4" className="form-label">
+            <label htmlFor="addAddress" className="form-label">
               Address
             </label>
             <input
               type="text"
               className="form-control"
-              id="formGroupExampleInput4"
+              id="addAddress"
               placeholder="Enter Address"
               name="address"
               value={address}
@@ -91,7 +89,7 @@ const AddContact = () => {
             <button
               className="btn btn-primary"
               type="button"
-              onClick={() => actions.fetchCreateOneContact(fullName, address, phone, email)}>
+              onClick={(e) => handleSave(e)}>
               Save
             </button>
           </div>
