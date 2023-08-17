@@ -41,13 +41,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(response => console.log("Successfully created", response))
 					.catch(error => console.error("Error creating contact:", error));
 			},
-			fetchUpdateContact:editContact  =>{
+			fetchUpdateContact:(id,data)  =>{
 				let options = {
 					method: "PUT",
-					body: JSON.stringify(editContact),
+					body: JSON.stringify(data),
 					headers: { "Content-Type": "application/json" }
 				};
-				fetch("https://playground.4geeks.com/apis/fake/contact/12557060618"+ editContact.id, options)
+				fetch("https://playground.4geeks.com/apis/fake/contact/"+ id, options)
 					.then(response => {
 						if (!response.ok) throw Error(response.statusText);
 						return response;

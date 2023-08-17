@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 const UpdateContact = () => {
@@ -8,8 +8,6 @@ const UpdateContact = () => {
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const[phone, setPhone] = useState("");
-
-    let navigate = useNavigate();
 
     const { id } = useParams();
 
@@ -34,14 +32,15 @@ const UpdateContact = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
         console.log(fullName, address, email,phone)
-        actions.updateContact(fullName, address, email, phone);
-        // Fetch all contacts again to update the contact list
-        setFullName("")
-        setAddress("")
-        setEmail("")
-        setPhone("")
-        navigate("/")
-        
+        actions.fetchUpdateContact(id,{
+          full_name: fullName,
+          address: address,
+          email: email,
+          phone: phone,
+          agenda_slug: "HelloAilyG",
+          
+        })
+  
       };
 
     return(
