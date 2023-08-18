@@ -1,13 +1,18 @@
-
+body{
+    background-color:black;
+}
 .container{
     border: 1px solid gainsboro;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 20px;
+   background-color: white;
     
 }
 .header{
     justify-content: center; 
     display: flex;
+    margin-top: 25px;
+    color: white;
     
 }
 .AddContactButton{
@@ -18,12 +23,12 @@ li {
     list-style-type: none; /* Remove bullet points from list items */
     margin-top: 80px;
 }
-/* Apply appropriate styles to position the button and list */
 .list-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
+    margin-bottom: 50px;
  
 }
 
@@ -38,7 +43,7 @@ li {
     border: 1px solid rgb(228, 222, 222);
     padding: 50px;
     width: 1250px;
-    margin: auto;
+   
 }
 
 .contact-image {
@@ -76,4 +81,14 @@ li {
 }
 .bi{
     margin-right: 10px;
+}
+.backToHome{
+    margin-top: 25px;
+}
+.btn:hover{
+    background-color: #00c8ff;
+    color: #e0efff;
+}
+label{
+    margin-top:10px ;
 }

@@ -114,7 +114,7 @@ const UpdateContact = () => {
             </button>
           </div>
           <Link to="/">
-            <p className="backHome">Get Back to Contacts</p>
+            <p className="backToHome">Get Back to Contacts</p>
           </Link>
         </div>
       </form>

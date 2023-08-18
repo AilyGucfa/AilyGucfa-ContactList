@@ -3,7 +3,7 @@ import { Context } from '../store/appContext';
 import { Link , useNavigate } from 'react-router-dom';
 
 const AddContact = () => {
-  const {actions } = useContext(Context);
+  const {store, actions } = useContext(Context);
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
@@ -94,7 +94,7 @@ const AddContact = () => {
             </button>
           </div>
           <Link to="/">
-            <p className="backHome">Get Back to Contacts</p>
+            <p className="backToHome">Get Back to Contacts</p>
           </Link>
         </div>
       </form>
