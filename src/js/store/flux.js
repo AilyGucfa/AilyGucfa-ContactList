@@ -36,6 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch("https://playground.4geeks.com/apis/fake/contact/", options)
 					.then(response => {
 						if (!response.ok) throw Error(response.statusText);
+                        getActions().fetchAllContacts()
 						return response;
 					})
 					.then(response => console.log("Successfully created", response))
@@ -50,6 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch("https://playground.4geeks.com/apis/fake/contact/"+ id, options)
 					.then(response => {
 						if (!response.ok) throw Error(response.statusText);
+                        getActions().fetchAllContacts()
 						return response;
 					})
 					.then(response => console.log("Contact updated", response))
